@@ -1,3 +1,4 @@
+
 name: Build Fluid Stage Manager APK
 
 on:
@@ -11,6 +12,7 @@ permissions:
 jobs:
   verify-and-build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +40,9 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK packages
-        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+        run: |
+          sdkmanager --install "platforms;android-36" "build-tools;35.0.0"
+          sdkmanager --licenses
 
       - name: Build debug APK
         run: gradle :app:assembleDebug --no-daemon --stacktrace --console=plain
